@@ -1,29 +1,16 @@
 # rank-app
-## Technologies
-Backend `viz/api` - NodeJS (expressJS), PostgreSQL
-Frontend `viz/frontend` - React, Nginx, Vite, CSS
-Both Frontend/Backend - Npm, Linux, Docker-Compose, Typescript
-App `compare` - typed python, curses terminal GUI, Plackett-Luce,
-
 ## Overview
-Terminal curses-based pairwise song rating app with a 
-PostgreSQL, Node.js (express.js) + React + Typescript + Nginx 
-interactive web dashboard/visualization tool. Uses docker-compose for 
-easy setup.
+Pariwise compare and rate songs on a terminal UI app, 
+then visualize your ratings on a React-based web dashboard.
+All data is handled using an web api and NodeJS (express) 
+based server. Docker-compose creates and links the backend/frontend and 
+database together with one command, in a cross-platform way.
 
-### App
-Continually listen to two songs and pick the winner on a terminal curses based GUI, 
-the project updates ranking information using the api service.
-
-### Frontend
-Visualize match history and song statistics on an interactive web dashboard.
-
-### API 
-Coordinates the app and frontend.
-
-Please note that the current api backend is poorly guarded against 
-DoS attacks and malicious payloads, and is not meant to be used in a 
-non-local context. The docker-compose is set to be local-host only by default.
+## Technologies
+Backend `viz/api` - NodeJS (expressJS), PostgreSQL. </br>
+Frontend `viz/frontend` - React, Nginx, Vite, CSS. </br>
+Both Frontend/Backend - Npm, Linux, Docker-Compose, Typescript. </br>
+App `compare` - modular typed python, curses terminal GUI, Plackett-Luce. </br>
 
 ## Features
 - PostgreSQL + NodeJS (ExpressJS) written in Typescript is used to drive the backend api service.
@@ -38,7 +25,7 @@ non-local context. The docker-compose is set to be local-host only by default.
 - Docker-Compose is used to efficiently containerize PostgreSQL as well as frontend+backend services.
 
 ## Dependencies
-Requires python and docker-compose to run.
+Requires python and docker-compose to run. The compare app requires VLC to be installed.
 
 ## Building and Running
 Currently the web services are run localhost only.
@@ -46,8 +33,9 @@ Currently the web services are run localhost only.
 ### General Setup
 1. Change directory into the root of the project before performing the following.
 2. An environment variables file (.env) is needed to authenticate the PostgreSQL service.</br>
-   Run the following to create one with dummy values (windows/linux):</br> 
-  `printf 'PG_USER=app\nPG_DB=app_db\nPG_PASSWORD=pass\n' > .env`
+   Run the following to create one as a copy of .env.example (DO NOT USE NON-LOCALLY):</br> 
+   (windows): `copy .env.example .env`</br>
+   (linux): `cp .env.example .env`
 3. Use the following to start the necessary services:</br>
    `docker compose up database -d`
 4. When finished, use the following to stop the services</br>
