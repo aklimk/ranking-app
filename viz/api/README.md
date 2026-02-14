@@ -31,4 +31,4 @@ Expects : {winner_id: song.id, loser_id: song.id}
 ## Song Stats Endpoint - /api/songstats
 ### /all
 ### GET
-Sends : {id: int, match_id: match.id | NULL, song_id: song.id, rating: float, rank: int}[]
+Sends : {id: int, matchup_id: match.id | NULL, song_id: song.id, rating: float, rank: int}[]
