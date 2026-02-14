@@ -1,0 +1,34 @@
+# Overview
+Npm package and docker image to allow the creation of an api capable of 
+sending/recieving song and match information. The docker image 
+listens on port 8000.
+
+Uses NodeJS + ExpressJS written in Typescript to handle HTTP routing, 
+"pg" to handle PostgreSQL able querying and 
+"zod" to do json parsing on POST requests.
+
+Please note that the current api backend is poorly guarded against 
+DoS attacks and malicious payloads, and is not meant to be used in a 
+non-local context.
+
+## API Overview
+
+## Song Endpoint - /api/song
+### /all
+#### GET
+Sends : {id: int, path: string, title: string, extension: string}[]
+#### POST
+Expects : {id: int, path: string, title: string, extension: string}[]
+
+## Match Endpoint - /api/match
+### /all
+### GET
+Sends : {id: int, winner_id: song.id, loser_id: song.id}[]
+### /one
+### POST
+Expects : {winner_id: song.id, loser_id: song.id}
+
+## Song Stats Endpoint - /api/songstats
+### /all
+### GET
+Sends : {id: int, matchup_id: match.id | NULL, song_id: song.id, rating: float, rank: int}[]
