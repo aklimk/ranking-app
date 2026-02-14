@@ -10,3 +10,25 @@ Uses NodeJS + ExpressJS written in Typescript to handle HTTP routing,
 Please note that the current api backend is poorly guarded against 
 DoS attacks and malicious payloads, and is not meant to be used in a 
 non-local context.
+
+## API Overview
+
+## Song Endpoint - /api/song
+### /all
+#### GET
+Sends : {id: int, path: string, title: string, extension: string}[]
+#### POST
+Expects : {id: int, path: string, title: string, extension: string}[]
+
+## Match Endpoint - /api/match
+### /all
+### GET
+Sends : {id: int, winner_id: song.id, loser_id: song.id}[]
+### /one
+### POST
+Expects : {winner_id: song.id, loser_id: song.id}
+
+## Song Stats Endpoint - /api/songstats
+### /all
+### GET
+Sends : {id: int, match_id: match.id | NULL, song_id: song.id, rating: float, rank: int}[]
