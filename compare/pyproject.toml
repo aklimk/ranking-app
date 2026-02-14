@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compare"
+dependencies = [
+    "openskill",
+    "python-vlc",
+    "requests",
+    "pydantic",
+    # Only needed on Windows; on Linux/macOS curses is in the stdlib.
+    "windows-curses>=2.3.0; platform_system == 'Windows'"
+]
+version = "0.1.0"
+description = "Music comparison application."
+requires-python = ">=3.12"
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-q"
+pythonpath = ["src"]
+
+[dependency-groups]
+dev = [
+    "pytest"
+]
