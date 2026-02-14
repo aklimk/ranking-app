@@ -1,0 +1,13 @@
+.env
+.venv/*
+compare/.pytest_cache/*
+compare/src/compare/__pycache__/*
+compare/tests/__pycache__/*
+codebook.toml
+viz/api/dist/*
+viz/api/node_modules/*
+viz/frontend/dist/*
+viz/frontend/node_modules/*
+compose-dev.sh
+compare/build/*
+compare/src/compare.egg-info/*
