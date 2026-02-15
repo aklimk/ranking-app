@@ -18,7 +18,7 @@ database together with one command, in a cross-platform way.
     </td>
   </tr>
 </table>
-<img src="dashboard-stage2.png" width="50%">
+<img src="dashboard-stage2.png" width="60%">
 
 ## Technologies
 Backend `viz/api` - NodeJS (expressJS), PostgreSQL. </br>
