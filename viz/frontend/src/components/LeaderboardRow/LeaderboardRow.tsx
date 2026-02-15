@@ -14,12 +14,16 @@ interface RankInfoProps {
   rankDelta: number
 }
 
-function deltaDisplay(delta: number) {
+function deltaDisplay(delta: number, rounding: number | null) {
+  const deltaString = (rounding === null)
+    ? Math.abs(delta).toString()
+    : Math.abs(delta).toFixed(rounding)
+
   let deltaDisplay: string;
   if (delta > 0) {
-    deltaDisplay = `^${delta}`;
+    deltaDisplay = `^${deltaString}`;
   } else if (delta < 0) {
-    deltaDisplay = `v${delta}`;
+    deltaDisplay = `v${deltaString}`;
   } else {
     deltaDisplay = "0";
   }
@@ -36,7 +40,7 @@ function RankInfo({
         #{rank}
       </div>
       <span className={styles["rank-delta"] + " " + styles["chip"]}>
-        {deltaDisplay(rankDelta)}
+        {deltaDisplay(rankDelta, null)}
       </span>
     </div>
   );
@@ -67,7 +71,7 @@ function RatingInfo({
     <div className={styles["rating-info"]}>
       <span>{rating.toFixed(2)}</span>
       <span className={styles["rating-delta"] + " " + styles["chip"]}>
-        {deltaDisplay(ratingDelta)}
+        {deltaDisplay(ratingDelta, 2)}
       </span>
     </div>
   )
