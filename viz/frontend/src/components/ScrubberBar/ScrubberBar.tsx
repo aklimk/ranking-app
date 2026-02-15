@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect } from "react";
 import type React from "react";
 import { PHASE, EDITABLE_TAGS } from "../../types";
+import styles from "./ScrubberBar.module.css";
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -76,15 +77,17 @@ export function ScrubberBar({
   }
 
   return (
-    <div className="scrubber">
+    <div className={"card " + styles["scrubber-card"]}>
+      <div className={styles["scrubber"]}>
       <input
         type="range"
         min={0}
         max={maxMatchIndex}
         value={matchIndex}
         onChange={handleRangeInput}
-      />
-      <p className="match-line">
+        />
+      </div>
+      <p className={styles["match-line"]}>
         <span>
           {isPreMatch
             ? "Pre-Match"

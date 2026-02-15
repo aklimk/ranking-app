@@ -20,13 +20,18 @@ export function App(): React.JSX.Element {
   if (maxMatchIndex === 0) {
     return <p>LOADING...</p>
   }
-  return <p>
-    <ScrubberBar
-      matchIndex={matchIndex}
-      setMatchIndex={setMatchIndex}
-      maxMatchIndex={maxMatchIndex}
-      phase={phase}
-      setPhase={setPhase}
-    />
-  </p>;
+  return (
+    <body>
+      <div className="app">
+        <ScrubberBar
+          matchIndex={matchIndex}
+          setMatchIndex={setMatchIndex}
+          maxMatchIndex={maxMatchIndex}
+          phase={phase}
+          setPhase={setPhase}
+        />
+        <div className="blank"></div>
+      </div>
+    </body>
+  );
 }
