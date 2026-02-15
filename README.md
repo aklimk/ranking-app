@@ -7,18 +7,18 @@ based server. Docker-compose creates and links the backend/frontend and
 database together with one command, in a cross-platform way.
 
 ## Images 
-<img src="main-comparison-app.png" width="50%">
+
 <table>
   <tr>
-    <td valign="top" width="50%">
-      <img src="dashboard-stage2.png" width="100%">
+    <td valign="top" width="30%">
+      <img src="main-comparison-app.png" width="100%">
     </td>
     <td valign="top" width="50%">
       <img src="dashboard-stage1.png" width="100%">
     </td>
   </tr>
 </table>
-
+<img src="dashboard-stage2.png" width="50%">
 
 ## Technologies
 Backend `viz/api` - NodeJS (expressJS), PostgreSQL. </br>
