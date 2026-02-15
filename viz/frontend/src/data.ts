@@ -31,7 +31,7 @@ export type SongStatsMap = Map<
   [SongStats["rating"], SongStats["rank"]]
 >;
 
-export async function getData(): Promise<[SongInfoMap, SongStatsMap]> {
+export async function getData(): Promise<[SongInfoMap, SongStatsMap, number]> {
   const res1 = await fetch("/api/song/all");
   if (!res1.ok) {
     throw new Error("Failed to load.");
@@ -50,11 +50,13 @@ export async function getData(): Promise<[SongInfoMap, SongStatsMap]> {
   }
   const songStatsArray = songStatsArraySchema.parse(await res.json());
   let songStatsMap: SongStatsMap = new Map;
+  let maxMatchIndex = 0;
   for (let songStats of songStatsArray) {
     songStatsMap.set([
       songStats.matchup_id, songStats.song_id], [songStats.rating, songStats.rank]
     );
+    maxMatchIndex = Math.max(maxMatchIndex, songStats.matchup_id ?? 0);
   }
 
-  return [songInfoMap, songStatsMap]
+  return [songInfoMap, songStatsMap, maxMatchIndex]
 }
