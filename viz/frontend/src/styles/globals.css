@@ -13,8 +13,6 @@ body {
     margin: 0;
     color: var(--ink);
     font-family: "Space Grotesk", "Avenir Next", "Trebuchet MS", sans-serif;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
     background-image:
       radial-gradient(1200px 680px at -8% -20%, rgba(29, 185, 84, 0.12), transparent 70%),
       radial-gradient(1000px 640px at 108% 0%, rgba(55, 148, 255, 0.11), transparent 73%),
@@ -35,10 +33,4 @@ body {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto auto;
     gap: 12px;
-}
-
-.blank {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    height: 1000px
 }

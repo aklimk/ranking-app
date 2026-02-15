@@ -27,7 +27,7 @@ export type SongInfoMap = Map<
   [SongInfo["path"], SongInfo["title"], SongInfo["extension"]]
 >;
 export type SongStatsMap = Map<
-  [SongStats["matchup_id"], SongStats["song_id"]],
+  string,
   [SongStats["rating"], SongStats["rank"]]
 >;
 
@@ -52,11 +52,23 @@ export async function getData(): Promise<[SongInfoMap, SongStatsMap, number]> {
   let songStatsMap: SongStatsMap = new Map;
   let maxMatchIndex = 0;
   for (let songStats of songStatsArray) {
-    songStatsMap.set([
-      songStats.matchup_id, songStats.song_id], [songStats.rating, songStats.rank]
+    songStatsMap.set(
+      songStatsKey(songStats.matchup_id ?? 0, songStats.song_id),
+      [songStats.rating, songStats.rank]
     );
     maxMatchIndex = Math.max(maxMatchIndex, songStats.matchup_id ?? 0);
   }
 
   return [songInfoMap, songStatsMap, maxMatchIndex]
+}
+
+export function songStatsKey(matchup_id: number, song_id: number) {
+  return matchup_id.toString() + ":" + song_id.toString();
+}
+
+export function unwrap<T>(value: T | null | undefined): T {
+  if (value === null || value === undefined) {
+    throw new Error("UNWRAP FAILED.");
+  }
+  return value;
 }
