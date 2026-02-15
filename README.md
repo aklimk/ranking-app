@@ -6,6 +6,20 @@ All data is handled using an web api and NodeJS (express)
 based server. Docker-compose creates and links the backend/frontend and 
 database together with one command, in a cross-platform way.
 
+## Images 
+<img src="main-comparison-app.png" width="50%">
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <img src="dashboard-stage2.png" width="100%">
+    </td>
+    <td valign="top" width="50%">
+      <img src="dashboard-stage1.png" width="100%">
+    </td>
+  </tr>
+</table>
+
+
 ## Technologies
 Backend `viz/api` - NodeJS (expressJS), PostgreSQL. </br>
 Frontend `viz/frontend` - React, Nginx, Vite, CSS. </br>
@@ -37,7 +51,7 @@ Currently the web services are run localhost only.
    (windows): `copy .env.example .env`</br>
    (linux): `cp .env.example .env`
 3. Use the following to start the necessary services:</br>
-   `docker compose up database -d`
+   `docker compose up -d`
 4. When finished, use the following to stop the services</br>
    `docker compose down`</br>
    The following stops the services and deletes data created:</br>
