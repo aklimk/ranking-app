@@ -4,7 +4,7 @@
     padding: 6px 7px;
     background: rgba(19, 26, 36, 0.72);
     display: grid;
-    grid-template-columns: 1fr 3fr 3fr;
+    grid-template-columns: 1fr 4fr 2fr;
     gap: 6px;
     align-items: center;
     transition:
