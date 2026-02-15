@@ -1,8 +1,16 @@
-import { ChangeEvent } from "react";
-import { PHASE } from "../../types";
+import { ChangeEvent, useEffect } from "react";
+import type React from "react";
+import { PHASE, EDITABLE_TAGS } from "../../types";
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
+}
+
+function isComponentEditable(target: EventTarget | null): boolean {
+  if (target instanceof HTMLElement && EDITABLE_TAGS.has(target.tagName)) {
+    return true;
+  }
+  return false;
 }
 
 interface ScrubberCardProps {
@@ -19,7 +27,43 @@ export function ScrubberBar({
   maxMatchIndex,
   phase,
   setPhase
-}: ScrubberCardProps) {
+}: ScrubberCardProps): React.JSX.Element {
+  useEffect(() => {
+    function scrubberKeys(event: KeyboardEvent): void {
+      if (event.altKey || event.metaKey || isComponentEditable(event.target)) {
+        return;
+      }
+
+      switch (event.key) {
+        case "ArrowRight":
+          if (phase === PHASE.REORDER_PHASE) {
+            if (matchIndex < maxMatchIndex) {
+              setMatchIndex(matchIndex + 1);
+              setPhase(PHASE.STATS_PHASE);
+            }
+          } else {
+            setPhase(PHASE.REORDER_PHASE);
+          }
+          break;
+        case "ArrowLeft":
+          if (phase === PHASE.REORDER_PHASE) {
+            setPhase(PHASE.STATS_PHASE);
+          } else {
+            if (matchIndex > 0) {
+              setMatchIndex(matchIndex - 1);
+              setPhase(PHASE.REORDER_PHASE);
+            }
+          }
+          break;
+        default:
+          return;
+      }
+      event.preventDefault();
+    }
+    window.addEventListener("keydown", scrubberKeys);
+    return () => window.removeEventListener("keydown", scrubberKeys);
+  });
+
   const isPreMatch = (matchIndex === 0);
   let phaseLabel: string;
   if (phase == PHASE.STATS_PHASE) {
