@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getData } from "../../data";
 import type { SongInfoMap, SongStatsMap } from "../../data";
 import { ScrubberBar } from "../ScrubberBar";
+import { LeaderboardRow } from "../LeaderboardRow";
 import { PHASE } from "../../types";
 
 export function App(): React.JSX.Element {
@@ -30,7 +31,15 @@ export function App(): React.JSX.Element {
           phase={phase}
           setPhase={setPhase}
         />
-        <div className="blank"></div>
+        <div className="blank">
+          <LeaderboardRow
+            title={"Example"}
+            rank={1}
+            rankDelta={2}
+            rating={1}
+            ratingDelta={2}
+          />
+        </div>
       </div>
     </body>
   );

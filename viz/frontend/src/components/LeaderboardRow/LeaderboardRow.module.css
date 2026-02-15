@@ -1,0 +1,53 @@
+.Leaderboard-row {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px 7px;
+    background: rgba(19, 26, 36, 0.72);
+    display: grid;
+    grid-template-columns: 1fr 3fr 3fr;
+    gap: 6px;
+    align-items: center;
+    transition:
+        border-color var(--stage-fade-duration) var(--stage-fade-easing),
+        background-color var(--stage-fade-duration) var(--stage-fade-easing);
+    will-change: transform;
+}
+
+.rank-info {
+    display: flex;
+    grid-column: 1;
+    gap: 10px;
+}
+
+.rank {
+    display: flex;
+    font-size: 0.79rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.rank-delta {
+    display: flex;
+}
+
+.song-title {
+    display: flex;
+    grid-column: 2;
+}
+
+.rating-info {
+    display: flex;
+    grid-column: 3;
+    gap: 25px;
+}
+
+.chip {
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    font-size: 0.65rem;
+    width: fit-content;
+    font-family: "IBM Plex Mono", "Consolas", monospace;
+    background: rgba(31, 41, 55, 0.88);
+    color: #cdd7e5;
+}
