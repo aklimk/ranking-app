@@ -21,6 +21,14 @@ const songInfoArraySchema = z.array(songInfoSchema);
 export type SongInfo = z.infer<typeof songInfoSchema>;
 export type SongInfoArray = z.infer<typeof songInfoArraySchema>;
 
+const matchResultSchema = z.object({
+  id: z.number(),
+  winner_id: z.number(),
+  loser_id: z.number()
+});
+const matchResultArraySchema = z.array(matchResultSchema);
+export type MatchResultSchema = z.infer<typeof matchResultSchema>;
+export type MatchResultArraySchema = z.infer<typeof matchResultArraySchema>;
 
 export type SongInfoMap = Map<
   SongInfo["id"],
@@ -30,8 +38,13 @@ export type SongStatsMap = Map<
   string,
   [SongStats["rating"], SongStats["rank"]]
 >;
+export type MatchResultMap = Map<
+  number, [number, number]
+ >;
 
-export async function getData(): Promise<[SongInfoMap, SongStatsMap, number]> {
+export async function getData():
+  Promise<[SongInfoMap, SongStatsMap, number, MatchResultMap]>
+{
   const res1 = await fetch("/api/song/all");
   if (!res1.ok) {
     throw new Error("Failed to load.");
@@ -59,7 +72,16 @@ export async function getData(): Promise<[SongInfoMap, SongStatsMap, number]> {
     maxMatchIndex = Math.max(maxMatchIndex, songStats.matchup_id ?? 0);
   }
 
-  return [songInfoMap, songStatsMap, maxMatchIndex]
+  let matchResults: MatchResultMap = new Map;
+  const res2 = await fetch("/api/match/all");
+  if (!res.ok) {
+    throw new Error("Failed to load.");
+  }
+  const matchResultArray = matchResultArraySchema.parse(await res2.json());
+  for (let matchResult of matchResultArray) {
+    matchResults.set(matchResult.id, [matchResult.winner_id, matchResult.loser_id]);
+  }
+  return [songInfoMap, songStatsMap, maxMatchIndex, matchResults]
 }
 
 export function songStatsKey(matchup_id: number, song_id: number) {

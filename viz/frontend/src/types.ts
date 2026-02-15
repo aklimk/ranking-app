@@ -4,3 +4,9 @@ export const enum PHASE {
 }
 
 export const EDITABLE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT"]);
+
+export const enum ROWTYPE  {
+  WINNER,
+  LOSER,
+  NEUTRAL
+}

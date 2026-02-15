@@ -51,3 +51,21 @@
     background: rgba(31, 41, 55, 0.88);
     color: #cdd7e5;
 }
+
+.row-winner {
+    border-color: rgba(47, 220, 117, 0.45);
+    background: rgba(15, 43, 25, 0.64);
+}
+
+.row-loser {
+    border-color: rgba(255, 123, 114, 0.46);
+    background: rgba(55, 20, 24, 0.58);
+}
+
+.chip-positive {
+    color: var(--rise);
+}
+
+.chip-negative {
+    color: var(--drop);
+}

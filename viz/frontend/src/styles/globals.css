@@ -7,6 +7,8 @@
     --muted: #9aa8bb;
     --accent: #1db954;
     --shadow: 0 10px 30px rgba(2, 6, 12, 0.45);
+    --rise: #2fdc75;
+    --drop: #ff7b72;
 }
 
 body {

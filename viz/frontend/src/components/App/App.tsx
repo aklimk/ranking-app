@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { getData, songStatsKey, unwrap } from "../../data";
-import type { SongInfoMap, SongStatsMap } from "../../data";
+import type { MatchResultMap, SongInfoMap, SongStatsMap } from "../../data";
 import { ScrubberBar } from "../ScrubberBar";
 import { Leaderboard } from "../Leaderboard";
 import { PHASE } from "../../types";
 
 export function App(): React.JSX.Element {
-  const [data, setData] = useState<[SongInfoMap, SongStatsMap, number]>([new Map, new Map, 0]);
+  const [data, setData] = useState<[
+    SongInfoMap, SongStatsMap, number, MatchResultMap
+  ]>([new Map, new Map, 0, new Map]);
   const [matchIndex, setMatchIndex] = useState<number>(0);
   const [prevMatchIndex, setPrevMatchIndex] = useState<number>(0);
   const [maxMatchIndex, setMaxMatchIndex] = useState<number>(0);
@@ -60,8 +62,8 @@ export function App(): React.JSX.Element {
         />
         <Leaderboard
           phase={phase}
-          winner_id={0}
-          loser_id={0}
+          winner_id={(data[3].get(matchIndex) ?? [0, 0])[0]}
+          loser_id={(data[3].get(matchIndex) ?? [0, 0])[1]}
           songIds={songIds}
           songInfoMap={data[0]}
           songStatsMap={data[1]}

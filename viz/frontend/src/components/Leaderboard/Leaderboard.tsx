@@ -2,7 +2,7 @@ import type { SongInfoMap, SongStatsMap } from "../../data";
 import { songStatsKey, unwrap } from "../../data";
 import styles from "./Leaderboard.module.css";
 import { LeaderboardRow } from "../LeaderboardRow";
-import { PHASE } from "../../types";
+import { PHASE, ROWTYPE } from "../../types";
 
 interface LeaderboardProps {
   matchIndex: number;
@@ -34,9 +34,18 @@ export function Leaderboard({
     const rank = unwrap(
       songStatsMap.get(songStatsKey(matchIndex, id))?.[1]
     );
-    const prevRank = (matchIndex === 0|| phase === PHASE.REORDER_PHASE)
+    const prevRank = (matchIndex === 0 || phase === PHASE.REORDER_PHASE)
       ? rank
       : unwrap(songStatsMap.get(songStatsKey(matchIndex - 1, id))?.[1]);
+
+    let rowType: ROWTYPE;
+    if (winner_id === id && matchIndex > 0) {
+      rowType = ROWTYPE.WINNER;
+    } else if (loser_id === id && matchIndex > 0) {
+      rowType = ROWTYPE.LOSER;
+    } else {
+      rowType = ROWTYPE.NEUTRAL;
+    }
 
     return (<LeaderboardRow
       title={title}
@@ -44,6 +53,7 @@ export function Leaderboard({
       rankDelta={prevRank - rank}
       rating={rating}
       ratingDelta={rating - prevRating}
+      rowType={rowType}
     />);
   });
   return (
