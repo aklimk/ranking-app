@@ -1,0 +1,7 @@
+.leaderboard {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
