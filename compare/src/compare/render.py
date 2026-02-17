@@ -76,11 +76,11 @@ class CursesMatchRenderer(MatchRenderer):
         song1_is_playing: bool
     ) -> None:
         if song1_is_playing:
-            song1_highlight = curses.A_UNDERLINE
+            song1_highlight = curses.A_BOLD
             song2_highlight = curses.A_NORMAL
         else:
             song1_highlight = curses.A_NORMAL
-            song2_highlight = curses.A_UNDERLINE
+            song2_highlight = curses.A_BOLD
 
         self._window.addnstr(
             self._player_bounds[1],
@@ -107,7 +107,7 @@ class CursesMatchRenderer(MatchRenderer):
         for song, info in song_ranks.items():
             highlight = curses.A_NORMAL
             if song in [song1, song2]:
-                highlight = curses.A_UNDERLINE
+                highlight = curses.A_BOLD
             self._window.addnstr(
                 self._song_list_bounds[1] + info[0],
                 self._song_list_bounds[0] + 2,

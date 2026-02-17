@@ -2,10 +2,12 @@
 Classes to allow for audio files to be validated and played.
 """
 
-from pathlib import Path
-from typing import Protocol, override
 import time
+from pathlib import Path
+from typing import Protocol, cast, override
+
 import vlc
+
 
 class AudioPlayer(Protocol):
     """
@@ -44,10 +46,12 @@ class AudioPlayer(Protocol):
         """
         ...
 
+
 class AudioPlayerBuilder(Protocol):
     """
     Interface to provide a standardized way of creating audio players.
     """
+
     def create(self, media_path: Path) -> AudioPlayer | None:
         """
         Creates a new audio player from a media path.
@@ -55,6 +59,7 @@ class AudioPlayerBuilder(Protocol):
         If the audio file is not playable, this should return None.
         """
         ...
+
 
 class VlcAudioPlayer(AudioPlayer):
     def __init__(self, player: vlc.MediaPlayer) -> None:
@@ -80,30 +85,22 @@ class VlcAudioPlayer(AudioPlayer):
     def set_position(self, position: float) -> None:
         self._player.set_position(position)
 
+
 class VlcAudioPlayerBuilder(AudioPlayerBuilder):
     """
     Class to build a `VlcAudioPlayer` instance.
     """
-    def __init__(self, pre_buffer_time: float) -> None:
-        """
-        For seeking functionality to work, vlc
-        plays must have started playing. This also makes
-        subsequent play/pause interactions quicker.
 
-        `pre_buffer_time` is the amount of time the
-        vlc audio file will spend silently waiting
-        for the file to play.
-        """
-        self._pre_buffer_time = pre_buffer_time
+    def __init__(self, pre_buffer_time: float) -> None:
+        self._pre_buffer_time: float = pre_buffer_time
+        self._vlc_instance: vlc.Instance = cast(vlc.Instance, vlc.Instance("--no-video", "--quiet"))
 
     @override
     def create(self, media_path: Path) -> VlcAudioPlayer | None:
-        player = vlc.MediaPlayer(media_path)
+        player = self._vlc_instance.media_player_new()
+        media = self._vlc_instance.media_new(media_path)
+        media.add_option("start-time=15")
+        player.set_media(media)
         if player is None:
             return None
-        player.audio_set_volume(0)
-        player.play()
-        time.sleep(self._pre_buffer_time)
-        player.pause()
-        player.audio_set_volume(100)
         return VlcAudioPlayer(player)
