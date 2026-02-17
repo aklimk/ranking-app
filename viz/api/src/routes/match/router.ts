@@ -38,7 +38,6 @@ matchRouter.post("/one", wrapHandler(async (req: Request, res: Response) => {
       ]
     );
   } else {
-    console.log(match_id);
     await pool.query(
       SAVE_SONG_STATS_QUERY,
       [

@@ -113,7 +113,6 @@ export function LeaderboardRow({
   } else {
     leaderboardClass = "";
   }
-  console.log(leaderboardClass);
   return (
     <div className={styles["Leaderboard-row"] + " " + leaderboardClass}>
       <RankInfo
