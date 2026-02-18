@@ -74,7 +74,7 @@ export async function getData():
 
   let matchResults: MatchResultMap = new Map;
   const res2 = await fetch("/api/match/all");
-  if (!res.ok) {
+  if (!res2.ok) {
     throw new Error("Failed to load.");
   }
   const matchResultArray = matchResultArraySchema.parse(await res2.json());
