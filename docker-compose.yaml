@@ -12,15 +12,17 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 1s
-      timeout: 5s
+      timeout: 3s
       retries: 10
 
   api:
     build: ./viz/api
     environment:
+      PG_HOST: database
+      PG_PORT: 5432
+      PG_DB: ${PG_DB:?set PG_DB in .env}
       PG_USER: ${PG_USER:?set PG_USER in .env}
       PG_PASSWORD: ${PG_PASSWORD:?set PG_PASSWORD in .env}
-      PG_DB: ${PG_DB:?set PG_DB in .env}
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
